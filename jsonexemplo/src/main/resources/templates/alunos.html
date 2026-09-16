@@ -4,15 +4,29 @@
 <head>
     <meta charset="UTF-8">
     <title>Lista de Alunos</title>
+    <!-- Aqui ele já está puxando o seu arquivo CSS externo -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
+
     <div class="container">
         <h1>Lista de Alunos</h1>
-        <a class="botao" th:href="@{/alunos/novo}">
+        
+        <a class="botao btn-novo" th:href="@{/alunos/novo}">
             Novo aluno
         </a>
+
+       
+        <form class="form-pesquisa" th:action="@{/alunos}" method="get">
+            <div class="grupo-pesquisa">
+                <input type="text" name="busca" class="input-pesquisa" th:value="${termoBusca}" 
+                       placeholder="Digite o nome do aluno...">
+                <button type="submit" class="btn-pesquisar">Pesquisar</button>
+                <a th:href="@{/alunos}" class="btn-limpar">Limpar</a>
+            </div>
+        </form>
+
         <table>
             <thead>
                 <tr>
@@ -41,7 +55,7 @@
                             Editar
                         </a>
                         <!-- EXCLUIR -->
-                        <form th:action="@{/alunos/{id}/excluir(id=${aluno.id})}" method="post" style="display:inline;">
+                        <form class="form-excluir" th:action="@{/alunos/{id}/excluir(id=${aluno.id})}" method="post">
                             <button type="submit">
                                 Excluir
                             </button>
@@ -51,6 +65,6 @@
             </tbody>
         </table>
     </div>
-</body>
 
+</body>
 </html>

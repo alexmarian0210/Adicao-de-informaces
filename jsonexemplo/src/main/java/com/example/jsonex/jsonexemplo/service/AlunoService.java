@@ -4,6 +4,7 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import com.example.jsonex.jsonexemplo.model.Aluno;
 import com.example.jsonex.jsonexemplo.repository.AlunoRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Service
 public class AlunoService {
@@ -70,6 +71,8 @@ public class AlunoService {
                 alunoExistente);
     }
 
+    
+
     // ==========================================
     // DELETE
     // ==========================================
@@ -82,4 +85,14 @@ public class AlunoService {
         alunoRepository.deleteById(id);
         return true;
     }
+// Buscar por nome 
+   @Autowired
+private AlunoRepository alunoRepository2;
+
+public List<Aluno> buscarPorNome(String nome) {
+    if (nome != null && !nome.trim().isEmpty()) {
+        return alunoRepository2.findByNomeContainingIgnoreCase(nome);
+    }
+    return alunoRepository2.findAll(); // Se a pesquisa estiver vazia, traz todos os alunos
+}
 }
