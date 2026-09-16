@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${titulo}">
+        Aluno
+    </title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="container">
+        <!--
+        O título será recebido do Controller.
+        Pode ser: Cadastrar Aluno ou Editar Aluno
+        -->
+        <h1 th:text="${titulo}">
+            Aluno
+        </h1>
+        
+        <!-- ==========================================
+        FORMULÁRIO DE CADASTRO
+        ========================================== -->
+        <!-- Se aluno.id for null, significa que estamos cadastrando. -->
+        <form th:if="${aluno.id == null}" th:action="@{/alunos}" th:object="${aluno}" method="post">
+            <div class="campo">
+                <label>Nome:</label>
+                <input type="text" th:field="*{nome}">
+            </div>
+            <div class="campo">
+                <label>Idade:</label>
+                <input type="number" th:field="*{idade}">
+            </div>
+            <div class="campo">
+                <label>Curso:</label>
+                <input type="text" th:field="*{curso}">
+            </div>
+            <div class="campo">
+                <label>Email:</label>
+                <input type="text" th:field="*{email}">
+            </div>
+            <div class="campo">
+                <label>Matrícula:</label>
+                <input type="text" th:field="*{matricula}">
+            </div>
+            <button type="submit">
+                Cadastrar
+            </button>
+        </form>
+
+        <!-- ==========================================
+        FORMULÁRIO DE EDIÇÃO
+        ========================================== -->
+        <!-- Se aluno.id não for null, significa que o aluno já existe. -->
+        <form th:if="${aluno.id != null}" th:action="@{/alunos/{id}/editar(id=${aluno.id})}" th:object="${aluno}" method="post">
+            <div class="campo">
+                <label>Nome:</label>
+                <input type="text" th:field="*{nome}">
+            </div>
+            <div class="campo">
+                <label>Idade:</label>
+                <input type="number" th:field="*{idade}">
+            </div>
+            <div class="campo">
+                <label>Curso:</label>
+                <input type="text" th:field="*{curso}">
+            </div>
+             <div class="campo">
+                <label>Email:</label>
+                <input type="text" th:field="*{email}">
+            </div>
+            <div class="campo">
+                <label>Matrícula:</label>
+                <input type="text" th:field="*{matricula}">
+            </div>
+            <button type="submit">
+                Salvar alterações
+            </button>
+        </form>
+        
+        <a th:href="@{/alunos}">
+            Voltar
+        </a>
+    </div>
+</body>
+
+</html>

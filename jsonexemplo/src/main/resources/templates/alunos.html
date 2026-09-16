@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Alunos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="container">
+        <h1>Lista de Alunos</h1>
+        <a class="botao" th:href="@{/alunos/novo}">
+            Novo aluno
+        </a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nome</th>
+                    <th>Idade</th>
+                    <th>Curso</th>
+                    <th>Email</th>
+                    <th>Matrícula</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="aluno : ${alunos}">
+                    <td th:text="${aluno.id}">1</td>
+                    <td th:text="${aluno.nome}">João</td>
+                    <td th:text="${aluno.idade}">17</td>
+                    <td th:text="${aluno.curso}">Informática</td>
+                    <td th:text="${aluno.email}">Joao@gmail.com</td>
+                    <td th:text="${aluno.matricula}">2026001</td>
+                    
+                    <!-- Coluna de Ações -->
+                    <td>
+                        <!-- EDITAR -->
+                        <a th:href="@{/alunos/{id}/editar(id=${aluno.id})}">
+                            Editar
+                        </a>
+                        <!-- EXCLUIR -->
+                        <form th:action="@{/alunos/{id}/excluir(id=${aluno.id})}" method="post" style="display:inline;">
+                            <button type="submit">
+                                Excluir
+                            </button>
+                        </form>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>
