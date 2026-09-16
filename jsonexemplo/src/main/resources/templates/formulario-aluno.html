@@ -26,23 +26,23 @@
         <form th:if="${aluno.id == null}" th:action="@{/alunos}" th:object="${aluno}" method="post">
             <div class="campo">
                 <label>Nome:</label>
-                <input type="text" th:field="*{nome}">
+                <input type="text" th:field="*{nome}"required>
             </div>
             <div class="campo">
                 <label>Idade:</label>
-                <input type="number" th:field="*{idade}">
+                <input type="number" th:field="*{idade}"required>
             </div>
             <div class="campo">
                 <label>Curso:</label>
-                <input type="text" th:field="*{curso}">
+                <input type="text" th:field="*{curso}"required>
             </div>
             <div class="campo">
                 <label>Email:</label>
-                <input type="text" th:field="*{email}">
+                <input type="text" th:field="*{email}"required>
             </div>
             <div class="campo">
                 <label>Matrícula:</label>
-                <input type="text" th:field="*{matricula}">
+                <input type="text" th:field="*{matricula}"required>
             </div>
             <button type="submit">
                 Cadastrar

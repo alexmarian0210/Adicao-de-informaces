@@ -1,98 +1,31 @@
 package com.example.jsonex.jsonexemplo.service;
 
-import java.util.List;
-import org.springframework.stereotype.Service;
 import com.example.jsonex.jsonexemplo.model.Aluno;
 import com.example.jsonex.jsonexemplo.repository.AlunoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class AlunoService {
-    // O Service agora depende do Repository.
-    private final AlunoRepository alunoRepository;
 
-    // Injeção de dependência.
-    public AlunoService(AlunoRepository alunoRepository) {
-        this.alunoRepository = alunoRepository;
-    }
+    @Autowired
+    private AlunoRepository alunoRepository;
 
-    // ==========================================
-    // READ
-    // LISTAR TODOS
-    // ==========================================
+    // 1. Método para listar todos os alunos (usado no GetMapping)
     public List<Aluno> listarTodos() {
         return alunoRepository.findAll();
     }
 
-    // ==========================================
-    // READ
-    // BUSCAR POR ID
-    // ==========================================
-    public Aluno buscarPorId(Long id) {
-        return alunoRepository
-                .findById(id)
-                .orElse(null);
+    // 2. Método para buscar alunos por nome (usado na pesquisa)
+    public List<Aluno> buscarPorNome(String nome) {
+        // Se você tiver um método diferente no repository, adapte aqui
+        return alunoRepository.findByNomeContainingIgnoreCase(nome);
     }
 
-    // ==========================================
-    // CREATE
-    // ==========================================
-    public Aluno cadastrar(Aluno aluno) {
+    // 3. O MÉTODO QUE ESTAVA FALTANDO PARA SALVAR
+    public Aluno salvar(Aluno aluno) {
         return alunoRepository.save(aluno);
     }
-
-    // ==========================================
-    // UPDATE
-    // ==========================================
-    public Aluno atualizar(
-            Long id,
-            Aluno alunoAtualizado) {
-        // Busca o aluno existente.
-        Aluno alunoExistente = buscarPorId(id);
-        // Verifica se foi encontrado.
-        if (alunoExistente == null) {
-            return null;
-        }
-        // Atualiza os dados.
-        alunoExistente.setNome(
-                alunoAtualizado.getNome());
-        alunoExistente.setIdade(
-                alunoAtualizado.getIdade());
-        alunoExistente.setCurso(
-                alunoAtualizado.getCurso());
-        alunoExistente.setEmail(
-                alunoAtualizado.getEmail());
-        alunoExistente.setMatricula(
-                alunoAtualizado.getMatricula());
-                
-                
-        // Salva novamente no banco.
-        return alunoRepository.save(
-                alunoExistente);
-    }
-
-    
-
-    // ==========================================
-    // DELETE
-    // ==========================================
-    public boolean excluir(Long id) {
-        // Verifica se o registro existe.
-        if (!alunoRepository.existsById(id)) {
-            return false;
-        }
-        // Exclui do banco.
-        alunoRepository.deleteById(id);
-        return true;
-    }
-// Buscar por nome 
-   @Autowired
-private AlunoRepository alunoRepository2;
-
-public List<Aluno> buscarPorNome(String nome) {
-    if (nome != null && !nome.trim().isEmpty()) {
-        return alunoRepository2.findByNomeContainingIgnoreCase(nome);
-    }
-    return alunoRepository2.findAll(); // Se a pesquisa estiver vazia, traz todos os alunos
-}
 }

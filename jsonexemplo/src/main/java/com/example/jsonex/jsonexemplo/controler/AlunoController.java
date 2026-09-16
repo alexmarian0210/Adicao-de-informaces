@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
@@ -15,12 +17,12 @@ public class AlunoController {
     @Autowired
     private AlunoService alunoService;
 
+    // 1. Método para listar alunos e fazer a pesquisa
     @GetMapping("/alunos")
     public String listarAlunos(@RequestParam(value = "busca", required = false) String busca, Model model) {
         List<Aluno> listaAlunos;
 
         if (busca != null && !busca.trim().isEmpty()) {
-            // a busca  por nome 
             listaAlunos = alunoService.buscarPorNome(busca);
         } else {
             listaAlunos = alunoService.listarTodos();
@@ -31,4 +33,23 @@ public class AlunoController {
 
         return "alunos";
     }
-}
+
+    // 2. Método para abrir a tela de cadastro
+    @GetMapping("/alunos/novo")
+    public String exibirFormularioNovoAluno(Model model) {
+        model.addAttribute("aluno", new Aluno());
+        
+       
+        return "formulario-aluno"; 
+    }
+
+    // 3. Método para receber os dados do form, salvar e voltar para a lista
+    @PostMapping("/alunos")
+    public String salvarAluno(@ModelAttribute Aluno aluno) {
+        // Manda o service salvar o aluno no banco de dados
+        alunoService.salvar(aluno); 
+        
+        // Redireciona de volta para a tela inicial (/alunos) após salvar
+        return "redirect:/alunos"; 
+    }
+}   
