@@ -34,4 +34,9 @@ public class AlunoService {
         return alunoRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("ID de aluno inválido: " + id));
     }
+
+    // Método para excluir o aluno do banco de dados
+    public void excluir(Long id) {
+        alunoRepository.deleteById(id);
+    }
 }

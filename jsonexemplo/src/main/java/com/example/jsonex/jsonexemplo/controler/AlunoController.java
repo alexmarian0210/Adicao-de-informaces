@@ -69,4 +69,11 @@ public class AlunoController {
         alunoService.salvar(aluno); 
         return "redirect:/alunos";
     }
+
+    // 6. Recebe o clique do botão excluir e apaga o aluno
+    @PostMapping("/alunos/{id}/excluir")
+    public String excluirAluno(@PathVariable Long id) {
+        alunoService.excluir(id); // Chama o service para deletar
+        return "redirect:/alunos"; // Recarrega a página da lista
+    }
 }   
