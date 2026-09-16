@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestParam;
 import java.util.List;
 
@@ -51,5 +52,21 @@ public class AlunoController {
         
         // Redireciona de volta para a tela inicial (/alunos) após salvar
         return "redirect:/alunos"; 
+    }
+
+   // Mude a rota aqui
+    @GetMapping("/alunos/{id}/editar")
+    public String exibirFormularioEditar(@PathVariable Long id, Model model) {
+        Aluno aluno = alunoService.buscarPorId(id);
+        model.addAttribute("aluno", aluno);
+        return "editar-aluno"; 
+    }
+
+    // Mude a rota aqui também
+    @PostMapping("/alunos/{id}/editar")
+    public String atualizarAluno(@PathVariable Long id, @ModelAttribute Aluno aluno) {
+        aluno.setId(id); 
+        alunoService.salvar(aluno); 
+        return "redirect:/alunos";
     }
 }   

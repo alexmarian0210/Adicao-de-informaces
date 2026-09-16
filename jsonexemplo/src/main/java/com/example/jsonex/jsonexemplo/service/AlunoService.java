@@ -28,4 +28,10 @@ public class AlunoService {
     public Aluno salvar(Aluno aluno) {
         return alunoRepository.save(aluno);
     }
+
+    // Adicione este método caso ainda não tenha
+    public Aluno buscarPorId(Long id) {
+        return alunoRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("ID de aluno inválido: " + id));
+    }
 }
