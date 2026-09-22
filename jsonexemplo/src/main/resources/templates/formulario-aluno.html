@@ -16,33 +16,29 @@
         Pode ser: Cadastrar Aluno ou Editar Aluno
         -->
         <h1 th:text="${titulo}">
-            Aluno
+            Bombeiro
         </h1>
         
         <!-- ==========================================
         FORMULÁRIO DE CADASTRO
         ========================================== -->
         <!-- Se aluno.id for null, significa que estamos cadastrando. -->
-        <form th:if="${aluno.id == null}" th:action="@{/alunos}" th:object="${aluno}" method="post">
+        <form th:if="${bombeiros.id == null}" th:action="@{/bombeiros}" th:object="${bombeiro}" method="post">
             <div class="campo">
                 <label>Nome:</label>
                 <input type="text" th:field="*{nome}"required>
             </div>
             <div class="campo">
-                <label>Idade:</label>
-                <input type="number" th:field="*{idade}"required>
+                <label>Cargo:</label>
+                <input type="number" th:field="*{cargo}"required>
             </div>
             <div class="campo">
-                <label>Curso:</label>
-                <input type="text" th:field="*{curso}"required>
+                <label>Cpf:</label>
+                <input type="text" th:field="*{cpf}"required>
             </div>
             <div class="campo">
-                <label>Email:</label>
-                <input type="text" th:field="*{email}"required>
-            </div>
-            <div class="campo">
-                <label>Matrícula:</label>
-                <input type="text" th:field="*{matricula}"required>
+                <label>Telefone:</label>
+                <input type="text" th:field="*{telefone}"required>
             </div>
             <button type="submit">
                 Cadastrar
@@ -53,33 +49,29 @@
         FORMULÁRIO DE EDIÇÃO
         ========================================== -->
         <!-- Se aluno.id não for null, significa que o aluno já existe. -->
-        <form th:if="${aluno.id != null}" th:action="@{/alunos/{id}/editar(id=${aluno.id})}" th:object="${aluno}" method="post">
+        <form th:if="${bombeiro.id != null}" th:action="@{/bombeiros/{id}/editar(id=${bombeiro.id})}" th:object="${bombeiro}" method="post">
             <div class="campo">
                 <label>Nome:</label>
                 <input type="text" th:field="*{nome}">
             </div>
-            <div class="campo">
-                <label>Idade:</label>
-                <input type="number" th:field="*{idade}">
-            </div>
-            <div class="campo">
-                <label>Curso:</label>
-                <input type="text" th:field="*{curso}">
-            </div>
              <div class="campo">
-                <label>Email:</label>
-                <input type="text" th:field="*{email}">
+                <label>Cargo:</label>
+                <input type="number" th:field="*{cargo}"required>
             </div>
             <div class="campo">
-                <label>Matrícula:</label>
-                <input type="text" th:field="*{matricula}">
+                <label>Cpf:</label>
+                <input type="text" th:field="*{cpf}"required>
+            </div>
+            <div class="campo">
+                <label>Telefone:</label>
+                <input type="text" th:field="*{telefone}"required>
             </div>
             <button type="submit">
                 Salvar alterações
             </button>
         </form>
         
-        <a th:href="@{/alunos}">
+        <a th:href="@{/bombeiros}">
             Voltar
         </a>
     </div>

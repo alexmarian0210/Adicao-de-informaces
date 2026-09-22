@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Lista de Alunos</title>
+    <title>Lista de Bombeiros</title>
     <!-- Aqui ele já está puxando o seu arquivo CSS externo -->
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -11,19 +11,19 @@
 <body>
 
     <div class="container">
-        <h1>Lista de Alunos</h1>
+        <h1>Lista de Bombeiros</h1>
         
-        <a class="botao btn-novo" th:href="@{/alunos/novo}">
-            Novo aluno
+        <a class="botao btn-novo" th:href="@{/Bombeiros/novo}">
+            Novo bombeiro
         </a>
 
        
-        <form class="form-pesquisa" th:action="@{/alunos}" method="get">
+        <form class="form-pesquisa" th:action="@{/bombeiros}" method="get">
             <div class="grupo-pesquisa">
                 <input type="text" name="busca" class="input-pesquisa" th:value="${termoBusca}" 
-                       placeholder="Digite o nome do aluno...">
+                       placeholder="Digite o nome do Bombeiro...">
                 <button type="submit" class="btn-pesquisar">Pesquisar</button>
-                <a th:href="@{/alunos}" class="btn-limpar">Limpar</a>
+                <a th:href="@{/bombeiros}" class="btn-limpar">Limpar</a>
             </div>
         </form>
 
@@ -32,30 +32,27 @@
                 <tr>
                     <th>ID</th>
                     <th>Nome</th>
-                    <th>Idade</th>
-                    <th>Curso</th>
-                    <th>Email</th>
-                    <th>Matrícula</th>
-                    <th>Ações</th>
+                    <th>Cargo</th>
+                    <th>Cpf</th>
+                    <th>Telefone</th>
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="aluno : ${alunos}">
-                    <td th:text="${aluno.id}">1</td>
-                    <td th:text="${aluno.nome}">João</td>
-                    <td th:text="${aluno.idade}">17</td>
-                    <td th:text="${aluno.curso}">Informática</td>
-                    <td th:text="${aluno.email}">Joao@gmail.com</td>
-                    <td th:text="${aluno.matricula}">2026001</td>
+                <tr th:each="bombeiros : ${bombeiros}">
+                    <td th:text="${bombeiros.id}">1</td>
+                    <td th:text="${bombeiros.nome}">Wallace Boden</td>
+                    <td th:text="${bombeiros.cargo}">Chefe do Batalhão</td>
+                    <td th:text="${bombeiros.cpf}">111.111.111-11</td>
+                    <td th:text="${bombeiros.telefone}">(11) 91111-0001</td>
                     
                     <!-- Coluna de Ações -->
                     <td>
                         <!-- EDITAR -->
-                        <a th:href="@{/alunos/{id}/editar(id=${aluno.id})}">
+                        <a th:href="@{/bombeiros/{id}/editar(id=${bombeiros.id})}">
                             Editar
                         </a>
                         <!-- EXCLUIR -->
-                        <form class="form-excluir" th:action="@{/alunos/{id}/excluir(id=${aluno.id})}" method="post">
+                        <form class="form-excluir" th:action="@{/bombeiro/{id}/excluir(id=${bombeiros.id})}" method="post">
                             <button type="submit">
                                 Excluir
                             </button>
