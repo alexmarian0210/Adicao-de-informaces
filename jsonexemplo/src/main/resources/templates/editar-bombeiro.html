@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Editar Bombeiro</title>
+</head>
+<body>
+
+    <h1>Editar Bombeiro</h1>
+    
+    <!-- O formulário envia os dados para o Controller -->
+    <!-- CORRIGIDO: Rota alterada de /bombeiro para /bombeiros (plural) para coincidir com o Controller -->
+    <form th:action="@{/bombeiros/{id}/editar(id=${bombeiro.id})}" th:object="${bombeiro}" method="post">
+        
+        <!-- Campo oculto com o ID do aluno (Obrigatório para o Java saber quem editar) -->
+        <input type="hidden" th:field="*{id}">
+
+        <div>
+            <label>Nome:</label><br>
+            <input type="text" th:field="*{nome}" required>
+        </div>
+
+        <div>
+            <label>Cargo:</label><br>
+            <!-- CORRIGIDO: type="String" não existe em HTML. Alterado para type="text" -->
+            <input type="text" th:field="*{cargo}" required>
+        </div>
+
+        <div>
+            <label>Cpf:</label><br>
+            <input type="text" th:field="*{cpf}" required>
+        </div>
+
+        <div>
+            <label>Telefone:</label><br>
+            <!-- CORRIGIDO: type="telefone" não existe em HTML. Alterado para type="text" (ou "tel") -->
+            <input type="text" th:field="*{telefone}" required>
+        </div>
+
+        <br>
+        
+        <div>
+            <button type="submit">Atualizar Bombeiro</button>
+            <!-- CORRIGIDO: O botão cancelar apontava para /alunos. Alterado para /bombeiros -->
+            <a th:href="@{/bombeiros}">Cancelar</a>
+        </div>
+        
+    </form>
+
+</body>
+</html>

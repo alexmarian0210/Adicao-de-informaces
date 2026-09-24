@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${veiculo.id == null ? 'Novo Veículo' : 'Editar Veículo'}">Veículo</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+
+<body>
+    <div class="container">
+        
+        <h1 th:text="${veiculo.id == null ? 'Cadastrar Veículo' : 'Editar Veículo'}">
+            Veículo
+        </h1>
+        
+        <!-- ==========================================
+        FORMULÁRIO DE CADASTRO
+        ========================================== -->
+        <form th:if="${veiculo.id == null}" th:action="@{/veiculos}" th:object="${veiculo}" method="post">
+            <div class="campo">
+                <label>Nome do Veículo (Ex: Caminhão 81):</label><br>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+            <br>
+            <div class="campo">
+                <label>Função (Ex: Combate a incêndio):</label><br>
+                <input type="text" th:field="*{funcao}" required>
+            </div>
+            <br>
+            <div class="campo">
+                <label>Placa (Ex: ABC-1234):</label><br>
+                <input type="text" th:field="*{placa}" required>
+            </div>
+            <br>
+            <button type="submit">Cadastrar</button>
+        </form>
+
+        <!-- ==========================================
+        FORMULÁRIO DE EDIÇÃO
+        ========================================== -->
+        <form th:if="${veiculo.id != null}" th:action="@{/veiculos/{id}/editar(id=${veiculo.id})}" th:object="${veiculo}" method="post">
+            <input type="hidden" th:field="*{id}">
+            <div class="campo">
+                <label>Nome do Veículo:</label><br>
+                <input type="text" th:field="*{nome}" required>
+            </div>
+            <br>
+            <div class="campo">
+                <label>Função:</label><br>
+                <input type="text" th:field="*{funcao}" required>
+            </div>
+            <br>
+            <div class="campo">
+                <label>Placa:</label><br>
+                <input type="text" th:field="*{placa}" required>
+            </div>
+            <br>
+            <button type="submit">Salvar alterações</button>
+        </form>
+        
+        <br>
+        <a th:href="@{/veiculos}">Voltar à Lista de Veículos</a>
+    </div>
+</body>
+
+</html>

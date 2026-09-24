@@ -54,17 +54,19 @@ public class BombeirosController {
         return "redirect:/bombeiros"; 
     }
 
-   // Mude a rota aqui
-    @GetMapping("/bombeiros/{id}/editar")
-    public String exibirFormularioEditar(@PathVariable Long id, Model model) {
-        Bombeiros bombeiros = bombeirosService.buscarPorId(id);
-        model.addAttribute("bombeiro", bombeiros);
-        return "editar-bombeiros"; 
-    }
+  @GetMapping("/bombeiros/{id}/editar")
+public String exibirFormularioEditar(@PathVariable Long id, Model model) {
+    Bombeiros bombeiros = bombeirosService.buscarPorId(id);
+    model.addAttribute("bombeiro", bombeiros);
+    
+    // Altere de "editar-bombeiros" para "editar-bombeiro"
+    return "editar-bombeiro"; 
+}
+
 
     // Mude a rota aqui também
     @PostMapping("/bombeiros/{id}/editar")
-    public String atualizarBombeiros(@PathVariable int id, @ModelAttribute Bombeiros bombeiro) {
+    public String atualizarBombeiros(@PathVariable long id, @ModelAttribute Bombeiros bombeiro) {
         bombeiro.setId(id); 
         bombeirosService.salvar(bombeiro); 
         return "redirect:/bombeiros";

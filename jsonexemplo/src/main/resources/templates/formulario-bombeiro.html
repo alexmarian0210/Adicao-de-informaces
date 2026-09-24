@@ -3,42 +3,40 @@
 
 <head>
     <meta charset="UTF-8">
-    <title th:text="${titulo}">
-        Aluno
+    <title th:text="${titulo != null ? titulo : 'Novo Bombeiro'}">
+        Bombeiro
     </title>
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
 
 <body>
     <div class="container">
-        <!--
-        O título será recebido do Controller.
-        Pode ser: Cadastrar Aluno ou Editar Aluno
-        -->
-        <h1 th:text="${titulo}">
+        
+        <h1 th:text="${titulo != null ? titulo : 'Cadastrar Bombeiro'}">
             Bombeiro
         </h1>
         
         <!-- ==========================================
         FORMULÁRIO DE CADASTRO
         ========================================== -->
-        <!-- Se aluno.id for null, significa que estamos cadastrando. -->
-        <form th:if="${bombeiros.id == null}" th:action="@{/bombeiros}" th:object="${bombeiro}" method="post">
+        <!-- CORRIGIDO: "bombeiro.id" no singular -->
+        <form th:if="${bombeiro.id == null}" th:action="@{/bombeiros}" th:object="${bombeiro}" method="post">
             <div class="campo">
                 <label>Nome:</label>
-                <input type="text" th:field="*{nome}"required>
+                <input type="text" th:field="*{nome}" required>
             </div>
             <div class="campo">
                 <label>Cargo:</label>
-                <input type="number" th:field="*{cargo}"required>
+                <!-- CORRIGIDO: type="text" para corresponder à String do Java -->
+                <input type="text" th:field="*{cargo}" required>
             </div>
             <div class="campo">
                 <label>Cpf:</label>
-                <input type="text" th:field="*{cpf}"required>
+                <input type="text" th:field="*{cpf}" required>
             </div>
             <div class="campo">
                 <label>Telefone:</label>
-                <input type="text" th:field="*{telefone}"required>
+                <input type="text" th:field="*{telefone}" required>
             </div>
             <button type="submit">
                 Cadastrar
@@ -48,7 +46,6 @@
         <!-- ==========================================
         FORMULÁRIO DE EDIÇÃO
         ========================================== -->
-        <!-- Se aluno.id não for null, significa que o aluno já existe. -->
         <form th:if="${bombeiro.id != null}" th:action="@{/bombeiros/{id}/editar(id=${bombeiro.id})}" th:object="${bombeiro}" method="post">
             <div class="campo">
                 <label>Nome:</label>
@@ -56,15 +53,16 @@
             </div>
              <div class="campo">
                 <label>Cargo:</label>
-                <input type="number" th:field="*{cargo}"required>
+                <!-- CORRIGIDO: type="text" -->
+                <input type="text" th:field="*{cargo}" required>
             </div>
             <div class="campo">
                 <label>Cpf:</label>
-                <input type="text" th:field="*{cpf}"required>
+                <input type="text" th:field="*{cpf}" required>
             </div>
             <div class="campo">
                 <label>Telefone:</label>
-                <input type="text" th:field="*{telefone}"required>
+                <input type="text" th:field="*{telefone}" required>
             </div>
             <button type="submit">
                 Salvar alterações

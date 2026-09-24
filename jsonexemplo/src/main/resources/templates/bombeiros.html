@@ -1,67 +1,65 @@
 <!DOCTYPE html>
-<html lang="pt-br" xmlns:th="http://www.thymeleaf.org">
-
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Bombeiros</title>
-    <!-- Aqui ele já está puxando o seu arquivo CSS externo -->
+    
     <link rel="stylesheet" th:href="@{/css/style.css}">
-</head>
+    
 
+</head>
 <body>
 
-    <div class="container">
-        <h1>Lista de Bombeiros</h1>
-        
-        <a class="botao btn-novo" th:href="@{/Bombeiros/novo}">
-            Novo bombeiro
-        </a>
+    <h1>Lista de Bombeiros</h1>
 
-       
-        <form class="form-pesquisa" th:action="@{/bombeiros}" method="get">
-            <div class="grupo-pesquisa">
-                <input type="text" name="busca" class="input-pesquisa" th:value="${termoBusca}" 
-                       placeholder="Digite o nome do Bombeiro...">
-                <button type="submit" class="btn-pesquisar">Pesquisar</button>
-                <a th:href="@{/bombeiros}" class="btn-limpar">Limpar</a>
-            </div>
-        </form>
-
-        <table>
-            <thead>
-                <tr>
-                    <th>ID</th>
-                    <th>Nome</th>
-                    <th>Cargo</th>
-                    <th>Cpf</th>
-                    <th>Telefone</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="bombeiros : ${bombeiros}">
-                    <td th:text="${bombeiros.id}">1</td>
-                    <td th:text="${bombeiros.nome}">Wallace Boden</td>
-                    <td th:text="${bombeiros.cargo}">Chefe do Batalhão</td>
-                    <td th:text="${bombeiros.cpf}">111.111.111-11</td>
-                    <td th:text="${bombeiros.telefone}">(11) 91111-0001</td>
-                    
-                    <!-- Coluna de Ações -->
-                    <td>
-                        <!-- EDITAR -->
-                        <a th:href="@{/bombeiros/{id}/editar(id=${bombeiros.id})}">
-                            Editar
-                        </a>
-                        <!-- EXCLUIR -->
-                        <form class="form-excluir" th:action="@{/bombeiro/{id}/excluir(id=${bombeiros.id})}" method="post">
-                            <button type="submit">
-                                Excluir
-                            </button>
-                        </form>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+    
+    <div>
+        <a th:href="@{/bombeiros/novo}" class="btn-novo">Novo bombeiro</a>
+        <a th:href="@{/veiculos}" class="btn-novo" style="background-color: #5c6bc0; margin-left: 10px;">Gestão de Veículos</a>
     </div>
+
+    <!-- Barra de Pesquisa -->
+    <div class="search-bar">
+        <form th:action="@{/bombeiros}" method="get" style="display: flex; gap: 10px;">
+            <input type="text" name="busca" th:value="${termoBusca}" placeholder="Digite o nome do Bombeiro...">
+            <button type="submit">Pesquisar</button>
+            <a th:href="@{/bombeiros}" class="btn-limpar">Limpar</a>
+        </form>
+    </div>
+
+    <!-- Tabela de Dados -->
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Cargo</th>
+                <th>Cpf</th>
+                <th>Telefone</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="bombeiro : ${bombeiros}">
+                <td th:text="${bombeiro.id}"></td>
+                <td th:text="${bombeiro.nome}"></td>
+                <td th:text="${bombeiro.cargo}"></td>
+                <td th:text="${bombeiro.cpf}"></td>
+                <td th:text="${bombeiro.telefone}"></td>
+                <td>
+                    <a th:href="@{/bombeiros/{id}/editar(id=${bombeiro.id})}" style="color: blue; text-decoration: none; margin-right: 10px;">Editar</a>
+                    
+                    <form th:action="@{/bombeiros/{id}/excluir(id=${bombeiro.id})}" method="post" class="acoes-form">
+                        <button type="submit" style="color: red; background: none; border: none; cursor: pointer; padding: 0;">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(bombeiros)}">
+                <td colspan="6" style="text-align: center; color: #555;">Nenhum bombeiro encontrado.</td>
+            </tr>
+        </tbody>
+    </table>
 
 </body>
 </html>

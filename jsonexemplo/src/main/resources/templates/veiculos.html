@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Lista de Veículos</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <style>
+        body { background-color: #d8f3f6; font-family: Arial, sans-serif; padding: 20px; margin: 0; }
+        .btn-novo { background-color: #2c2c2c; color: white; padding: 10px 15px; text-decoration: none; border-radius: 4px; display: inline-block; margin-bottom: 20px; }
+        table { width: 100%; border-collapse: collapse; background-color: #333; color: white; margin-top: 20px; }
+        th, td { padding: 12px; text-align: left; border-bottom: 1px solid #555; }
+        td { background-color: #fff; color: #000; }
+    </style>
+</head>
+<body>
+
+    <h1>Lista de Veículos da Frota</h1>
+
+    <div style="margin-bottom: 20px;">
+        <a th:href="@{/veiculos/novo}" class="btn-novo">Novo Veículo</a>
+        <a th:href="@{/bombeiros}" class="btn-novo" style="background-color: #5c6bc0; margin-left: 10px;">Voltar aos Bombeiros</a>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>Função</th>
+                <th>Placa</th> <!-- Nova Coluna -->
+                <th>Ações</th> 
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="veiculo : ${veiculos}">
+                <td th:text="${veiculo.id}"></td>
+                <td th:text="${veiculo.nome}"></td>
+                <td th:text="${veiculo.funcao}"></td>
+                <td th:text="${veiculo.placa}"></td> <!-- Novo Dado -->
+                <td>
+                    <a th:href="@{/veiculos/{id}/editar(id=${veiculo.id})}" style="color: blue; text-decoration: none; margin-right: 10px;">Editar</a>
+                    
+                    <form th:action="@{/veiculos/{id}/excluir(id=${veiculo.id})}" method="post" style="display: inline;">
+                        <button type="submit" style="color: red; background: none; border: none; cursor: pointer; padding: 0;">Excluir</button>
+                    </form>
+                </td>
+            </tr>
+            <tr th:if="${#lists.isEmpty(veiculos)}">
+                <td colspan="5" style="text-align: center; color: #555;">Nenhum veículo encontrado.</td>
+            </tr>
+        </tbody>
+    </table>
+
+</body>
+</html>
